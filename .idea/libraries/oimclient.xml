@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="oimclient">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/../../../Java/Jar File/oimclient.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
