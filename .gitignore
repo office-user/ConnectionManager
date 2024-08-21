@@ -1,0 +1,16 @@
+# Ignore Java output directory
+target/
+
+# Ignore IDE configuration files
+.idea/
+.eclipse/
+
+# Ignore Maven and Gradle build files
+pom.xml.tag
+build.gradle.tag
+
+# Ignore Java class files
+*.class
+
+# Ignore Java log files
+*.log
