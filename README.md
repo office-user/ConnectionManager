@@ -1,10 +1,5 @@
 ---
-# README
-
-
 # Oracle Identity Manager (OIM) and Database Integration
-
-# Oracle Identity Manager (OIM) Platform Utility
 
 ## Overview
 This project provides a utility class for interacting with Oracle Identity Manager (OIM) and associated databases. It includes methods for establishing OIM connections, retrieving OIM services, and creating database connections.
