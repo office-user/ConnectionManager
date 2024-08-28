@@ -2,76 +2,99 @@
 
 # README
 
+# Oracle Identity Manager (OIM) Platform Utility
+
 ## Overview
+This project provides a utility class for interacting with Oracle Identity Manager (OIM) and associated databases. It includes methods for establishing OIM connections, retrieving OIM services, and creating database connections.
 
-This project demonstrates how to establish a connection to both a database and Oracle Identity Manager (OIM) using a custom `Platform` class. The `Platform` class provides methods to handle these connections dynamically, ensuring that the required configurations are managed efficiently.
+## Files
+1. `Platform.java`: The main utility class containing methods for OIM and database operations.
+2. `PlatformTest.java`: A test class demonstrating the usage of the `Platform` class.
 
-### Key Components
-- **Platform Class**: Handles database and OIM connections via `getOperationalDS().getConnection()` and `getService(Class<?> serviceClass)`.
-- **OperationalDS Class**: Nested within the `Platform` class, this class simulates a data source and provides a method to establish a JDBC connection.
-- **Main Class**: Demonstrates how to use the `Platform` class to establish and test both database and OIM connections.
+## Prerequisites
+- Java 8 or higher
+- Oracle Identity Manager libraries
+- Oracle JDBC driver
+- Properly configured OIM environment
 
-## Structure
+## Configuration
+Before using the `Platform` class, you need to configure the following constants in `Platform.java`:
 
-- **Platform Class**
-  - `getOperationalDS()`: Returns an instance of `OperationalDS` for database connections.
-  - `getService(Class<?> serviceClass)`: Returns an `OIMClient` instance based on the service class provided (e.g., `tcLookupOperationsIntf.class`).
-  - `getOIMClientConnection(Class<?> serviceClass)`: Manages the connection to OIM using the provided service class.
+- `AUTH_WL_LOCATION`: Path to the authentication file
+- `T3_URL`: OIM server URL
+- `OIM_USERNAME`: OIM login username
+- `OIM_PASSWORD`: OIM login password
+- `DB_URL`: Database URL
+- `DB_USERNAME`: Database username
+- `DB_PASSWORD`: Database password
 
-- **OperationalDS Class**
-  - `getConnection()`: Establishes and returns a JDBC connection.
-
-- **Main Class**
-  - Tests database and OIM connections using the `Platform` class.
+Replace the `#` placeholders with your actual values.
 
 ## Usage
 
-### Database Connection
-
-The `Platform.getOperationalDS().getConnection()` method provides a connection to the database. The connection details, such as URL, username, and password, are defined in the `Platform` class. Modify these values as needed.
-
-### OIMClient Connection
-
-The `Platform.getService(Class<?> serviceClass)` method provides an `OIMClient` connection. Pass the required service class as a parameter, such as `tcLookupOperationsIntf.class`, to establish a connection to OIM.
-
-### Example
-
+### Establishing an OIM Connection
 ```java
-import java.sql.Connection;
-import oracle.iam.platform.OIMClient;
-import com.thortech.xl.dataobj.tcLookupOperationsIntf;
-
-public class Main {
-    public static void main(String[] args) {
-        // Database connection test
-        Connection dbConnection = Platform.getOperationalDS().getConnection();
-        
-        // OIMClient connection test
-        OIMClient oimClient = Platform.getService(tcLookupOperationsIntf.class);
-    }
-}
+OIMClient oimClient = Platform.getOIMConnection();
+// Use the oimClient
+// Don't forget to close the connection when done
+oimClient.logout();
 ```
 
-### Dependencies
+### Retrieving an OIM Service
+```java
+OIMClient oimClient = Platform.getOIMConnection();
+UserManager userManager = Platform.getService(oimClient, UserManager.class);
+// Use the userManager
+// Don't forget to close the OIM connection when done
+oimClient.logout();
+```
 
-Ensure that the following dependencies are included in your project:
+### Creating a Database Connection
+```java
+Connection conn = Platform.getDatabaseConnection();
+// Use the database connection
+// Don't forget to close the connection when done
+conn.close();
+```
 
-- **Oracle JDBC Driver**: For database connections.
-- **Oracle Identity Manager API**: For interacting with OIM.
+## Testing
+The `PlatformTest` class provides examples of how to use the `Platform` class methods and properly manage connections. To run the tests:
 
-### Logging
+1. Compile the Java files:
+   ```
+   javac Platform.java PlatformTest.java
+   ```
+2. Run the test class:
+   ```
+   java PlatformTest
+   ```
 
-Logging is implemented using the `java.util.logging.Logger` class, providing detailed information on the connection processes.
+## Important Notes
+- Always close connections (OIMClient and database) after use to prevent resource leaks.
+- Handle exceptions appropriately in your application.
+- Ensure that you have the necessary permissions to connect to the OIM server and database.
+- This code is for demonstration purposes and may need to be adapted for production use, particularly in terms of security and error handling.
+
+## Logging
+The code uses Java's built-in logging (java.util.logging). Log messages are generated for significant events and errors, which can help in debugging and monitoring.
 
 ## Customization
+You can extend the `Platform` class or modify the existing methods to suit your specific needs. For example, you might want to add more specific OIM operations or additional database functionality.
 
-To use this code in your environment:
-1. Update the database connection details in the `getConnection()` method of the `OperationalDS` class.
-2. Configure the OIM connection details in the `getOIMClientConnection()` method of the `Platform` class.
-3. Modify the `Main` class as needed for your specific use cases.
+## Security Considerations
+- Avoid hardcoding sensitive information like passwords in the code. Consider using environment variables or secure configuration files.
+- Implement proper authentication and authorization in a production environment.
+- Use prepared statements for any SQL queries to prevent SQL injection attacks.
 
-## Conclusion
+## Contributing
+Feel free to fork this project and submit pull requests for any enhancements or bug fixes.
 
-This project offers a flexible structure for managing both database and OIM connections. By centralizing connection logic in the `Platform` class, the code ensures easy maintenance and scalability.
+## License
+[Specify your license here]
 
+```
+
+This README provides a comprehensive guide for understanding, setting up, and using the OIM Platform Utility. It covers the basics of what the code does, how to configure it, how to use its main functionalities, and important considerations for security and customization.
+
+Remember to replace the license placeholder with the appropriate license for your project. Also, you may want to add more specific details about your project's context, any dependencies that need to be installed, or more detailed setup instructions depending on your target audience.
 ---
