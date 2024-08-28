@@ -20,7 +20,7 @@ public class Platform {
 
     // Logger instance for logging information and errors
     private static final Logger LOG = Logger.getLogger(Platform.class.getName());
-    private static String CLASS_NAME = Platform.class.getName();
+    private static final String CLASS_NAME = Platform.class.getName();
 
     // Default configuration values for database and OIM connections
     private static final String DEFAULT_DB_URL = "jdbc:oracle:thin:@localhost:1521:orcl";
@@ -32,7 +32,7 @@ public class Platform {
     private static final String DEFAULT_OIM_PASSWORD = "password";
 
     // Properties object to load configuration values from a properties file
-    private static Properties properties = new Properties();
+    private static final Properties properties = new Properties();
 
     // Static block to initialize properties from a file
     static {
@@ -153,7 +153,7 @@ public class Platform {
     public static class OperationalDS {
 
 
-        private static String CLASS_NAME = OperationalDS.class.getName();
+        private static final String CLASS_NAME = OperationalDS.class.getName();
 
         /**
          * Establishes and returns a database connection using configuration values from properties or defaults.

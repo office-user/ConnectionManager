@@ -7,9 +7,10 @@ import java.sql.SQLException;
 import java.util.logging.Logger;
 
 import Thor.API.Operations.tcLookupOperationsIntf;
-//import com.gagan.config.Platform;
+
+import com.gagan.oim.config.Platform; // in deploying time use this : `import oracle.iam.platform.Platform;`
 import oracle.iam.identity.usermgmt.api.UserManager;
-import oracle.iam.platform.Platform;
+
 
 public class Main {
 
